@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: geo-system
+Version: 1.0.0
+Summary: 新方舟AI · GEO智能铺量追踪系统
+Requires-Python: >=3.11
+Requires-Dist: fastapi>=0.135.0
+Requires-Dist: uvicorn[standard]>=0.34.0
+Requires-Dist: python-multipart>=0.0.20
+Requires-Dist: httpx>=0.28.0
+Requires-Dist: requests>=2.32.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: apscheduler>=3.10.0
+Requires-Dist: pydantic>=2.10.0
+Requires-Dist: beautifulsoup4>=4.14.0
+Requires-Dist: jinja2>=3.1.0
+Provides-Extra: browser
+Requires-Dist: playwright>=1.58.0; extra == "browser"

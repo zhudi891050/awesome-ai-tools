@@ -1,0 +1,94 @@
+[
+  {
+    "id": 29,
+    "title": "2026年最好用的AI视频工具推荐",
+    "type": "tool_list",
+    "category": "AI视频",
+    "platforms": [
+      "website",
+      "website",
+      "rss",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/29.html"
+  },
+  {
+    "id": 30,
+    "title": "Perplexity深度评测：AI办公领域的秘密武器？",
+    "type": "tool_review",
+    "category": "AI办公",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/30.html"
+  },
+  {
+    "id": 31,
+    "title": "Microsoft Copilot横向对比：谁才是AI办公之王？",
+    "type": "tool_compare",
+    "category": "AI办公",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/31.html"
+  },
+  {
+    "id": 32,
+    "title": "关于专业AI视频工具横评，这15个问题你一定要知道",
+    "type": "faq",
+    "category": "AI视频",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/32.html"
+  },
+  {
+    "id": 33,
+    "title": "2026年AI工具发展趋势与展望",
+    "type": "industry_view",
+    "category": "AI工具",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/33.html"
+  },
+  {
+    "id": 34,
+    "title": "2026年最好用的AI视频工具推荐",
+    "type": "tool_list",
+    "category": "AI视频",
+    "platforms": [
+      "website",
+      "website",
+      "rss",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/34.html"
+  },
+  {
+    "id": 35,
+    "title": "HeyGen深度评测：AI数字人领域的秘密武器？",
+    "type": "tool_review",
+    "category": "AI数字人",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/35.html"
+  },
+  {
+    "id": 36,
+    "title": "Notion AI横向对比：谁才是AI写作之王？",
+    "type": "tool_compare",
+    "category": "AI写作",
+    "platforms": [
+      "website",
+      "rss"
+    ],
+    "html_path": "/home/judy/.hermes/projects/geo-system/data/articles/36.html"
+  }
+]

@@ -1,0 +1,105 @@
+# ============================================
+# GEO系统配套基础设施
+# 启动: docker-compose up -d
+# ============================================
+
+version: "3.8"
+
+services:
+  # 工作流编排引擎
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: geo-n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_AUTH_PASSWORD}
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=http://localhost:5678/
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=168
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./integrations/n8n_workflows:/home/node/.n8n/workflows
+    restart: unless-stopped
+    networks:
+      - geo-network
+
+  # 通用RSS生成器
+  rsshub:
+    image: diygod/rsshub:latest
+    container_name: geo-rsshub
+    ports:
+      - "1200:1200"
+    environment:
+      - NODE_ENV=production
+      - CACHE_TYPE=memory
+      - CACHE_EXPIRE=300
+    restart: unless-stopped
+    networks:
+      - geo-network
+
+  # 隐私元搜索引擎
+  searxng:
+    image: searxng/searxng:latest
+    container_name: geo-searxng
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./integrations/searxng_config:/etc/searxng
+      - searxng_data:/usr/local/searxng/data
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8081/
+      - INSTANCE_NAME=GEO-Search-Monitor
+      - SEARXNG_SECRET_KEY=${SEARXNG_SECRET_KEY}
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    networks:
+      - geo-network
+
+  # 网页变化监控
+  changedetection:
+    image: dgtlmoon/changedetection.io:latest
+    container_name: geo-changedetection
+    ports:
+      - "5000:5000"
+    volumes:
+      - changedetection_data:/datastore
+    environment:
+      - PLAYWRIGHT_DRIVER_URL=ws://geo-playwright:3000
+      - USE_PLAYWRIGHT=1
+    restart: unless-stopped
+    networks:
+      - geo-network
+
+  # Playwright浏览器（changedetection依赖）
+  playwright:
+    image: browserless/chrome:latest
+    container_name: geo-playwright
+    ports:
+      - "3000:3000"
+    environment:
+      - CONNECTION_TIMEOUT=60000
+      - MAX_CONCURRENT_SESSIONS=5
+    restart: unless-stopped
+    networks:
+      - geo-network
+
+volumes:
+  n8n_data:
+  searxng_data:
+  changedetection_data:
+
+networks:
+  geo-network:
+    driver: bridge

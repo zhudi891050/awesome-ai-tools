@@ -1,0 +1,41 @@
+# GEO系统依赖
+# 安装: pip install -r requirements.txt
+
+# Web框架
+fastapi>=0.135.0
+uvicorn[standard]>=0.34.0
+python-multipart>=0.0.20
+
+# 数据库
+aiosqlite>=0.20.0
+
+# HTTP客户端
+httpx>=0.28.0
+requests>=2.32.0
+
+# 配置
+pyyaml>=6.0
+
+# 定时任务
+apscheduler>=3.10.0
+
+# 数据验证
+pydantic>=2.10.0
+
+# 浏览器自动化（知乎等平台发布）
+playwright>=1.58.0
+
+# 网页解析
+beautifulsoup4>=4.14.0
+
+# 邮件
+# smtplib built-in (no extra dep)
+
+# 模板渲染
+jinja2>=3.1.0
+
+# 图表（Dashboard）
+# Chart.js via CDN (no extra dep)
+
+# 日志
+# logging built-in (no extra dep)

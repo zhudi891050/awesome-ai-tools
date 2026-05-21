@@ -1,0 +1,2 @@
+[console_scripts]
+geo-system = main:app

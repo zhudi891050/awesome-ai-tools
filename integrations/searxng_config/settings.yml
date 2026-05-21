@@ -1,0 +1,61 @@
+# SearXNG配置 — 用于监控品牌在多个搜索引擎中的出现情况
+use_default_settings: true
+
+general:
+  instance_name: "GEO搜索监控器"
+  debug: false
+  privacypolicy_url: false
+  contact_url: false
+  enable_metrics: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "zh-CN"
+  formats:
+    - html
+    - json
+
+server:
+  secret_key: "${SEARXNG_SECRET_KEY:-geo-monitor-change-me-in-production}"
+  bind_address: "0.0.0.0"
+  port: 8080
+  limiter: false
+  image_proxy: false
+  method: "GET"
+
+ui:
+  static_use_hash: true
+  default_theme: simple
+  default_locale: zh-Hans-CN
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+    disabled: false
+
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+
+  - name: baidu
+    engine: baidu
+    shortcut: bd
+    disabled: false
+
+  - name: bing_news
+    engine: bing_news
+    shortcut: bin
+    disabled: false
+
+outgoing:
+  request_timeout: 10.0
+  max_request_timeout: 15.0
+  useragent_suffix: ""

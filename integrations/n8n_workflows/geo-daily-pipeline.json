@@ -1,0 +1,119 @@
+{
+  "name": "GEO每日自动化Pipeline",
+  "description": "每日内容生成 → 多平台发布 → AI追踪 → 日报推送 全流程",
+  "nodes": [
+    {
+      "name": "每日触发器",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "notes": "每天早上8点触发",
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "调用内容生成API",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "调用GEO系统生成内容",
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8888/api/generate/daily",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "options": {
+          "timeout": 300000
+        }
+      }
+    },
+    {
+      "name": "调用AI追踪API",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "每日AI可见度追踪",
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8888/api/track/run",
+        "options": {
+          "timeout": 600000
+        }
+      }
+    },
+    {
+      "name": "等待追踪完成",
+      "type": "n8n-nodes-base.wait",
+      "parameters": {
+        "amount": 60,
+        "unit": "seconds"
+      }
+    },
+    {
+      "name": "生成日报",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "生成并发送日报",
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8888/api/report/send",
+        "options": {
+          "timeout": 60000
+        }
+      }
+    },
+    {
+      "name": "Slack/企业微信通知",
+      "type": "n8n-nodes-base.httpRequest",
+      "notes": "推送完成通知",
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8888/api/report/notify",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        }
+      }
+    }
+  ],
+  "connections": {
+    "每日触发器": {
+      "main": [
+        [
+          {"node": "调用内容生成API", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "调用内容生成API": {
+      "main": [
+        [
+          {"node": "调用AI追踪API", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "调用AI追踪API": {
+      "main": [
+        [
+          {"node": "等待追踪完成", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "等待追踪完成": {
+      "main": [
+        [
+          {"node": "生成日报", "type": "main", "index": 0}
+        ]
+      ]
+    },
+    "生成日报": {
+      "main": [
+        [
+          {"node": "Slack/企业微信通知", "type": "main", "index": 0}
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,284 @@
+# ============================================
+# GEO系统配置 — 新方舟AI
+# ============================================
+
+# 品牌信息
+brand:
+  name: "新方舟AI"
+  domain: "xinfangzhouai.com"
+  slogan: "发现最好用的AI工具"
+  description: "新方舟AI是一个AI工具导航与评测社区，帮助用户发现、对比和选择最适合的AI工具。涵盖AI写作、AI绘画、AI视频、AI编程、AI办公等全品类AI工具。"
+
+# DeepSeek API（内容生成）
+deepseek:
+  api_key: "${DEEPSEEK_API_KEY}"
+  api_base: "https://api.deepseek.com/v1"
+  model: "deepseek-chat"
+  max_tokens: 4096
+
+# 各AI引擎API（追踪用）
+engines:
+  doubao:
+    name: "豆包"
+    api_base: "https://ark.cn-beijing.volces.com/api/v3"
+    api_key: "${DOUBAO_API_KEY}"
+    model: "doubao-pro-32k"
+    weight: 10  # 最高权重
+
+  baidu_ernie:
+    name: "百度文心一言"
+    api_base: "https://qianfan.baidubce.com/v2"
+    api_key: "${BAIDU_API_KEY}"
+    secret_key: "${BAIDU_SECRET_KEY}"
+    model: "ernie-4.0-8k"
+    weight: 8
+
+  kimi:
+    name: "Kimi"
+    api_base: "https://api.moonshot.cn/v1"
+    api_key: "${KIMI_API_KEY}"
+    model: "moonshot-v1-8k"
+    weight: 8
+
+  tongyi:
+    name: "通义千问"
+    api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    api_key: "${TONGYI_API_KEY}"
+    model: "qwen-plus"
+    weight: 7
+
+  deepseek_engine:
+    name: "DeepSeek"
+    api_base: "https://api.deepseek.com/v1"
+    api_key: "${DEEPSEEK_API_KEY}"
+    model: "deepseek-chat"
+    weight: 7
+
+  yuanbao:
+    name: "腾讯元宝"
+    api_base: "https://hunyuan.tencentcloudapi.com"
+    api_key: "${HUNYUAN_API_KEY}"
+    secret_key: "${HUNYUAN_SECRET_KEY}"
+    model: "hunyuan-pro"
+    weight: 5
+
+# 追踪查询词库
+tracking_queries:
+  brand_queries:
+    - "新方舟AI"
+    - "xinfangzhouai"
+    - "新方舟AI工具"
+
+  category_queries:
+    - "AI工具导航网站推荐"
+    - "AI工具排行榜哪个好"
+    - "好用的AI工具导航站"
+    - "AI工具去哪里找"
+    - "AI工具体验评测网站"
+
+  longtail_queries:
+    - "2026年最好的AI写作工具有哪些"
+    - "AI绘画工具哪个好用推荐"
+    - "免费的AI视频生成工具推荐"
+    - "AI编程助手哪个最好用"
+    - "国产AI工具推荐合集"
+    - "AI办公效率工具推荐"
+    - "AI音频生成工具哪个好"
+    - "AI数字人制作工具推荐"
+    - "AI换脸工具哪个好用"
+    - "AI聊天机器人推荐"
+
+# 竞品列表
+competitors:
+  - name: "AI工具集"
+    domain: "ai-tools.cn"
+  - name: "ToolAI"
+    domain: "toolai.io"
+  - name: "AIbase"
+    domain: "aibase.com"
+  - name: "AI导航"
+    domain: "ainav.cn"
+
+# 内容生成配置
+content:
+  daily_count: 8  # 每天生成总数
+  types:
+    - weight: 2
+      type: tool_list     # 榜单体（最多，分发广）
+    - weight: 2
+      type: tool_review   # 深度评测
+    - weight: 1
+      type: tool_compare  # 横向对比
+    - weight: 2
+      type: faq           # 问答体（AI引用最高）
+    - weight: 1
+      type: industry_view # 行业趋势
+  min_length: 1500
+  max_length: 5000
+
+# ─── 平台适配策略 ───────────────────────────
+# 每个平台不同人格、不同格式、不同长度
+platform_profiles:
+  zhihu:
+    display_name: "知乎"
+    personality: "行业资深从业者，有态度的工具测评人"
+    style: "深度观点文，有论点有论据，善用「但是」「本质上」「关键问题是」制造讨论"
+    length: [2500, 4500]
+    best_types: [tool_review, tool_compare, industry_view]
+    format_rules:
+      - "开头必须有观点鲜明的「先说结论」"
+      - "中间要有2-3个争议性观点引发评论"
+      - "结尾用提问句引导互动"
+      - "适当使用个人经历增强可信度"
+
+  csdn:
+    display_name: "CSDN"
+    personality: "专业的技术博主，注重实操和代码"
+    style: "技术教程体，步骤清晰、有代码示例、有截图说明"
+    length: [2000, 4000]
+    best_types: [tool_review, faq]
+    format_rules:
+      - "必须有「环境配置/使用步骤」章节"
+      - "关键操作用代码块或命令示例"
+      - "加上「常见问题排查」章节"
+      - "文末加作者信息+转载声明"
+
+  juejin:
+    display_name: "掘金"
+    personality: "关注前沿的开发者，简洁有干货"
+    style: "前端/全栈视角，讲原理、讲对比、不废话"
+    length: [1200, 2500]
+    best_types: [tool_compare, tool_list, tool_review]
+    format_rules:
+      - "开头用「前言」快速点明主题"
+      - "多用表格和对比列表"
+      - "代码/命令必须放在code block里"
+      - "结尾加「总结」和「参考资料」"
+
+  baijiahao:
+    display_name: "百家号"
+    personality: "科技媒体编辑，信息密度高，标题党"
+    style: "新闻资讯体，时效性强、引用数据、有看点头图"
+    length: [1500, 3000]
+    best_types: [industry_view, tool_list]
+    format_rules:
+      - "标题必须包含数字或热点词"
+      - "开头100字必须抓人眼球"
+      - "每300字配一个小标题"
+      - "结尾加「延伸阅读」引导"
+
+  github:
+    display_name: "GitHub"
+    personality: "项目维护者，中立、结构化"
+    style: "文档体，纯结构化数据+简洁英文描述"
+    length: [500, 2000]
+    best_types: [tool_list]
+    format_rules:
+      - "README必须用英文+中文双语"
+      - "工具列表用Markdown表格"
+      - "每个工具有一句话描述+链接+emoji分类"
+      - "提供 tools.json 结构化数据文件"
+
+  website:
+    display_name: "自有网站"
+    personality: "新方舟AI官方，权威、全面、SEO友好"
+    style: "百科+评测混合体，适合被AI全文引用"
+    length: [2000, 5000]
+    best_types: [tool_review, faq, tool_list, tool_compare, industry_view]
+    format_rules:
+      - "必须包含JSON-LD结构化数据"
+      - "H2/H3层级清晰，每段独立可引用"
+      - "大量内链指向网站其他页面"
+      - "图片加alt标签，表格加caption"
+      - "结尾加FAQ区块和CTA"
+
+  wechat:
+    display_name: "公众号"
+    personality: "贴心的AI工具推荐官，亲切有温度"
+    style: "短平快，标题党+金句+emoji点缀"
+    length: [800, 2000]
+    best_types: [tool_list, faq]
+    format_rules:
+      - "标题控制在20字以内，有吸引力"
+      - "每段不超过3行，大量留白"
+      - "重点句加粗或用色块"
+      - "文末引导关注和在看"
+
+# ─── 内容分发策略 ───────────────────────────
+# 决定哪类内容分发到哪类平台
+distribution_matrix:
+  tool_review:
+    platforms: [website, zhihu, csdn, juejin]
+    adapt: true   # 每个平台独立改写
+  tool_list:
+    platforms: [website, github, juejin, baijiahao, wechat]
+    adapt: true
+  tool_compare:
+    platforms: [website, zhihu, juejin]
+    adapt: true
+  faq:
+    platforms: [website, csdn, wechat]
+    adapt: true
+  industry_view:
+    platforms: [website, zhihu, baijiahao]
+    adapt: true
+
+# 发布平台配置
+publishers:
+  website:
+    enabled: true
+    api_url: "${WEBSITE_API_URL}"
+    api_key: "${WEBSITE_API_KEY}"
+
+  github:
+    enabled: true
+    repo: "awesome-ai-tools"
+    token: "${GITHUB_TOKEN}"
+
+  zhihu:
+    enabled: false  # 需要手动登录cookie
+    headless: true  # 生产环境建议true，首次登录需设为false扫码
+    cookie_file: "data/zhihu_cookie.json"
+
+  csdn:
+    enabled: false
+    api_key: "${CSDN_API_KEY}"
+
+  juejin:
+    enabled: false
+    cookie_file: "data/juejin_cookie.json"
+
+  baijiahao:
+    enabled: false  # 需要企业认证
+    api_key: "${BAIJIAHAO_API_KEY}"
+
+# 日报通知配置
+report:
+  email:
+    enabled: true
+    smtp_host: "smtp.126.com"
+    smtp_port: 465
+    smtp_user: "${EMAIL_USER}"
+    smtp_pass: "${EMAIL_PASS}"
+    to: "${REPORT_EMAIL}"
+
+  wechat:
+    enabled: false
+    webhook_url: "${WECHAT_WEBHOOK_URL}"  # 企业微信机器人
+
+  serverchan:
+    enabled: false
+    send_key: "${SERVERCHAN_SEND_KEY}"
+
+# 调度配置
+schedule:
+  content_generation: "08:00"    # 每天8点生成内容
+  content_publish: "09:00"       # 每天9点发布
+  tracking: "10:00"              # 每天10点追踪
+  daily_report: "18:00"          # 每天18点发送日报
+
+# 系统配置
+system:
+  port: 8888
+  data_dir: "data"
+  log_level: "info"

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geo-system"
+version = "1.0.0"
+description = "新方舟AI · GEO智能铺量追踪系统"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.135.0",
+    "uvicorn[standard]>=0.34.0",
+    "python-multipart>=0.0.20",
+    "httpx>=0.28.0",
+    "requests>=2.32.0",
+    "pyyaml>=6.0",
+    "apscheduler>=3.10.0",
+    "pydantic>=2.10.0",
+    "beautifulsoup4>=4.14.0",
+    "jinja2>=3.1.0",
+]
+
+[project.optional-dependencies]
+browser = ["playwright>=1.58.0"]
+
+[tool.setuptools]
+packages = [
+    "content",
+    "content.prompts",
+    "publisher",
+    "tracker",
+    "tracker.engines",
+    "reporter",
+    "dashboard",
+]
+# 根目录模块作为单文件模块
+py-modules = ["database", "config_loader"]
+
+[project.scripts]
+geo-system = "main:app"
