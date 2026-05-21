@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>新方舟AI - AI工具导航与评测社区</title>
-<meta name="description" content="新方舟AI — 专业AI工具导航、深度评测、使用教程社区。发现最好用的AI工具，获取最新AI资讯。">
-<meta property="og:title" content="新方舟AI - AI工具导航与评测">
-<meta property="og:description" content="发现最好用的AI工具，获取专业深度评测">
+<title>⚡ 新方舟AI</title>
+<meta name="description" content="新方舟AI — 专业AI工具导航、深度评测社区">
 <style>
 :root{--bg:#0f0f1a;--card:#1a1a2e;--accent:#4A90D9;--accent2:#7BB3F0;--text:#e0e0e0;--muted:#888;--border:#2a2a3e}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -26,11 +24,11 @@ header p{color:var(--muted);margin-top:10px;font-size:1.05em}
 .article-card{background:var(--card);border-radius:12px;padding:20px;border:1px solid var(--border);transition:.2s;display:flex;flex-direction:column}
 .article-card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .article-badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:0.75em;color:#fff;margin-bottom:10px;width:fit-content}
-.badge-review{background:#4A90D9}
-.badge-list{background:#50C878}
-.badge-compare{background:#9B59B6}
-.badge-faq{background:#E67E22}
-.badge-industry{background:#E74C3C}
+.br{background:#4A90D9}
+.bl{background:#50C878}
+.bc{background:#9B59B6}
+.bf{background:#E67E22}
+.bi{background:#E74C3C}
 .article-title{font-size:1.05em;font-weight:600;margin-bottom:8px;flex-grow:1}
 .article-title a{color:var(--text);text-decoration:none}
 .article-title a:hover{color:var(--accent2)}
@@ -45,65 +43,35 @@ footer a{color:var(--accent2);text-decoration:none}
 <h1>⚡ 新方舟AI</h1>
 <p>专业AI工具导航 · 深度评测 · 使用教程</p>
 <p style="margin-top:6px;font-size:0.85em;color:#666">
-<a href="http://39.102.49.11:4000" style="color:#4A90D9;text-decoration:none">访问主站 →</a>
+<a href="http://39.102.49.11:4000" style="color:#4A90D9;text-decoration:none">访问主站 &rarr;</a>
 </p>
 </header>
 <div class="container">
-<div class="stats" id="stats">
-<div class="stat"><div class="stat-num" id="totalArticles">16</div><div class="stat-label">文章总数</div></div>
-<div class="stat"><div class="stat-num" id="totalCategories">8</div><div class="stat-label">AI 分类</div></div>
-<div class="stat"><div class="stat-num" id="updateDate">今日</div><div class="stat-label">最近更新</div></div>
+<div class="stats">
+<div class="stat"><div class="stat-num">16</div><div class="stat-label">文章总数</div></div>
+<div class="stat"><div class="stat-num">8</div><div class="stat-label">AI 分类</div></div>
+<div class="stat"><div class="stat-num">2026年5月21日</div><div class="stat-label">最后更新</div></div>
 </div>
-<div class="categories" id="categories"></div>
+<div class="categories"><span class="tag" onclick="f('all')" style="cursor:pointer;color:#4A90D9;border-color:#4A90D9">全部</span><span class="tag" onclick="filterArticles('AI写作')" style="cursor:pointer">AI写作</span>
+<span class="tag" onclick="filterArticles('AI办公')" style="cursor:pointer">AI办公</span>
+<span class="tag" onclick="filterArticles('AI工具')" style="cursor:pointer">AI工具</span>
+<span class="tag" onclick="filterArticles('AI数字人')" style="cursor:pointer">AI数字人</span>
+<span class="tag" onclick="filterArticles('AI测试')" style="cursor:pointer">AI测试</span>
+<span class="tag" onclick="filterArticles('AI绘画')" style="cursor:pointer">AI绘画</span>
+<span class="tag" onclick="filterArticles('AI视频')" style="cursor:pointer">AI视频</span>
+<span class="tag" onclick="filterArticles('AI音频')" style="cursor:pointer">AI音频</span></div>
 <div class="articles" id="articles"></div>
 <footer>
-<p>© 2026 <a href="http://39.102.49.11:4000">新方舟AI</a> — 发现最好用的AI工具</p>
+<p>&copy; 2026 <a href="http://39.102.49.11:4000">新方舟AI</a> &mdash; 发现最好用的AI工具</p>
 </footer>
 </div>
 <script>
-const articles = [
-{id:16,title:"Notion AI横向对比：谁才是AI写作之王？",type:"tool_compare",category:"AI写作",url:"http://39.102.49.11:4000/article/notion-ai横向对比-谁才是ai写作之王"},
-{id:15,title:"HeyGen深度评测：AI数字人领域的秘密武器？",type:"tool_review",category:"AI数字人",url:"http://39.102.49.11:4000/article/heygen深度评测-ai数字人领域的秘密武器"},
-{id:14,title:"2026年AI工具发展趋势与展望",type:"industry_view",category:"AI工具",url:"http://39.102.49.11:4000/article/2026年ai工具发展趋势与展望"},
-{id:13,title:"关于专业AI视频工具横评，这15个问题你一定要知道",type:"faq",category:"AI视频",url:"http://39.102.49.11:4000/article/关于专业ai视频工具横评-这15个问题你一定要知道"},
-{id:12,title:"Microsoft Copilot横向对比：谁才是AI办公之王？",type:"tool_compare",category:"AI办公",url:"http://39.102.49.11:4000/article/microsoft-copilot横向对比-谁才是ai办公之王"},
-{id:11,title:"Perplexity深度评测：AI办公领域的秘密武器？",type:"tool_review",category:"AI办公",url:"http://39.102.49.11:4000/article/perplexity深度评测-ai办公领域的秘密武器"},
-{id:10,title:"2026年最好用的AI视频工具推荐",type:"tool_list",category:"AI视频",url:"http://39.102.49.11:4000/article/2026年最好用的ai视频工具推荐"},
-{id:9,title:"企业工具横向对比：谁才是AI工具之王？",type:"tool_compare",category:"AI工具",url:"http://39.102.49.11:4000/article/企业工具横向对比-谁才是ai工具之王"},
-{id:8,title:"Sora深度评测：AI视频领域的秘密武器？",type:"tool_review",category:"AI视频",url:"http://39.102.49.11:4000/article/sora深度评测-ai视频领域的秘密武器"},
-{id:7,title:"2026年最好用的AI绘画工具推荐",type:"tool_list",category:"AI绘画",url:"http://39.102.49.11:4000/article/2026年最好用的ai绘画工具推荐"},
-{id:6,title:"2026年AI写作发展趋势与展望",type:"industry_view",category:"AI写作",url:"http://39.102.49.11:4000/article/2026年ai写作发展趋势与展望"},
-{id:5,title:"关于国产AI办公工具，这15个问题你一定要知道",type:"faq",category:"AI办公",url:"http://39.102.49.11:4000/article/关于国产ai办公工具-这15个问题你一定要知道"},
-{id:4,title:"文心一格横向对比：谁才是AI绘画之王？",type:"tool_compare",category:"AI绘画",url:"http://39.102.49.11:4000/article/文心一格横向对比-谁才是ai绘画之王"},
-{id:3,title:"Microsoft Copilot深度评测：AI办公领域的秘密武器？",type:"tool_review",category:"AI办公",url:"http://39.102.49.11:4000/article/microsoft-copilot深度评测-ai办公领域的秘密武器"},
-{id:2,title:"2026年最好用的AI音频工具推荐",type:"tool_list",category:"AI音频",url:"http://39.102.49.11:4000/article/2026年最好用的ai音频工具推荐"},
-{id:1,title:"测试文章：从GEO推送到生产服务器",type:"tool_review",category:"AI测试",url:"http://39.102.49.11:4000/article/测试文章-从geo推送到生产服务器"}
-];
-const badgeMap={tool_review:'评测',tool_list:'推荐',tool_compare:'对比',faq:'问答',industry_view:'趋势'};
-const colorMap={tool_review:'badge-review',tool_list:'badge-list',tool_compare:'badge-compare',faq:'badge-faq',industry_view:'badge-industry'};
-let cats=new Set();
-articles.forEach(a=>cats.add(a.category));
-document.getElementById('totalCategories').textContent=cats.size;
-document.getElementById('updateDate').textContent=new Date().toLocaleDateString('zh-CN',{month:'long',day:'numeric',year:'numeric'});
-let catHtml='<span class="tag" onclick="filterArticles(\'all\')" style="cursor:pointer;color:#4A90D9;border-color:#4A90D9">全部</span>';
-cats.forEach(c=>{catHtml+=`<span class="tag" onclick="filterArticles('${c}')" style="cursor:pointer">${c}</span>`});
-document.getElementById('categories').innerHTML=catHtml;
-function render(list){
-let html='';
-list.forEach(a=>{
-let badge=badgeMap[a.type]||a.type;
-let cls=colorMap[a.type]||'badge-review';
-html+=`
-<div class="article-card">
-<span class="article-badge ${cls}">${badge}</span>
-<div class="article-title"><a href="${a.url}" target="_blank">${a.title}</a></div>
-<div class="article-meta">${a.category} · ${a.type.replace('_',' ')}</div>
-</div>`});
-document.getElementById('articles').innerHTML=html;}
-filterArticles('all');
-function filterArticles(cat){
-if(cat==='all')render(articles);
-else render(articles.filter(a=>a.category===cat));}
+var a=[{"id": 16, "title": "Notion AI横向对比：谁才是AI写作之王？", "type": "tool_compare", "category": "AI写作", "url": "http://39.102.49.11:4000/article/notion-ai横向对比-谁才是ai写作之王"}, {"id": 15, "title": "HeyGen深度评测：AI数字人领域的秘密武器？", "type": "tool_review", "category": "AI数字人", "url": "http://39.102.49.11:4000/article/heygen深度评测-ai数字人领域的秘密武器"}, {"id": 14, "title": "2026年AI工具发展趋势与展望", "type": "industry_view", "category": "AI工具", "url": "http://39.102.49.11:4000/article/2026年ai工具发展趋势与展望"}, {"id": 13, "title": "关于专业AI视频工具横评，这15个问题你一定要知道", "type": "faq", "category": "AI视频", "url": "http://39.102.49.11:4000/article/关于专业ai视频工具横评-这15个问题你一定要知道"}, {"id": 12, "title": "Microsoft Copilot横向对比：谁才是AI办公之王？", "type": "tool_compare", "category": "AI办公", "url": "http://39.102.49.11:4000/article/microsoft-copilot横向对比-谁才是ai办公之王"}, {"id": 11, "title": "Perplexity深度评测：AI办公领域的秘密武器？", "type": "tool_review", "category": "AI办公", "url": "http://39.102.49.11:4000/article/perplexity深度评测-ai办公领域的秘密武器"}, {"id": 10, "title": "2026年最好用的AI视频工具推荐", "type": "tool_list", "category": "AI视频", "url": "http://39.102.49.11:4000/article/2026年最好用的ai视频工具推荐"}, {"id": 9, "title": "企业工具横向对比：谁才是AI工具之王？", "type": "tool_compare", "category": "AI工具", "url": "http://39.102.49.11:4000/article/企业工具横向对比-谁才是ai工具之王"}, {"id": 8, "title": "Sora深度评测：AI视频领域的秘密武器？", "type": "tool_review", "category": "AI视频", "url": "http://39.102.49.11:4000/article/sora深度评测-ai视频领域的秘密武器"}, {"id": 7, "title": "2026年最好用的AI绘画工具推荐", "type": "tool_list", "category": "AI绘画", "url": "http://39.102.49.11:4000/article/2026年最好用的ai绘画工具推荐"}, {"id": 6, "title": "2026年AI写作发展趋势与展望", "type": "industry_view", "category": "AI写作", "url": "http://39.102.49.11:4000/article/2026年ai写作发展趋势与展望"}, {"id": 5, "title": "关于国产AI办公工具，这15个问题你一定要知道", "type": "faq", "category": "AI办公", "url": "http://39.102.49.11:4000/article/关于国产ai办公工具-这15个问题你一定要知道"}, {"id": 4, "title": "文心一格横向对比：谁才是AI绘画之王？", "type": "tool_compare", "category": "AI绘画", "url": "http://39.102.49.11:4000/article/文心一格横向对比-谁才是ai绘画之王"}, {"id": 3, "title": "Microsoft Copilot深度评测：AI办公领域的秘密武器？", "type": "tool_review", "category": "AI办公", "url": "http://39.102.49.11:4000/article/microsoft-copilot深度评测-ai办公领域的秘密武器"}, {"id": 2, "title": "2026年最好用的AI音频工具推荐", "type": "tool_list", "category": "AI音频", "url": "http://39.102.49.11:4000/article/2026年最好用的ai音频工具推荐"}, {"id": 1, "title": "测试文章：从GEO推送到生产服务器", "type": "tool_review", "category": "AI测试", "url": "http://39.102.49.11:4000/article/测试文章-从geo推送到生产服务器"}];
+var b={'tool_review':'评测','tool_list':'推荐','tool_compare':'对比','faq':'问答','industry_view':'趋势'};
+var c={'tool_review':'br','tool_list':'bl','tool_compare':'bc','faq':'bf','industry_view':'bi'};
+function r(l){var h='';l.forEach(function(x){var t=b[x.type]||x.type;var k=c[x.type]||'br';h+='<div class="article-card"><span class="article-badge '+k+'">'+t+'</span><div class="article-title"><a href="'+x.url+'" target="_blank">'+x.title+'</a></div><div class="article-meta">'+x.category+'</div></div>'});document.getElementById('articles').innerHTML=h;}
+function f(c){if(c==='all')r(a);else r(a.filter(function(x){return x.category===c}));}
+f('all');
 </script>
 </body>
 </html>
